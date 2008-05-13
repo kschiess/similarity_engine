@@ -76,7 +76,14 @@ describe 'Computations' do
       it "should return an array of words with punctuation" do
         @coefficient.filter_words('abc.def').should == ['abc', 'def']
       end
-  end
+    end
+    
+    describe "#filter_freqs" do
+
+      it "should cut off top frequencies" do
+        @coefficient.filter_freqs( "the" => 100, "hello" => 1).should == { "hello" => 1}
+      end
+    end
     
   end
 end

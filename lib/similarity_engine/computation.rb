@@ -50,7 +50,19 @@ module SimilarityEngine
       
       def filter_words(str)
         
-        str.gsub(/\W/, ' ').split
+        str.downcase.gsub(/\W/, ' ').split
+      end
+      
+      def filter_freqs(hash)
+        words = {}
+        word_count = 0
+        hash.each do |word, count|
+          word_count += count
+        end
+        hash.each do |word, count|
+          words[word] = count if count < 0.8 * word_count
+        end
+        words
       end
       
       def freq_count(arr)
@@ -79,7 +91,7 @@ module SimilarityEngine
       
       def coefficient(str1, str2)
         return 0 unless str1 && str2
-        h1, h2 = [str1, str2].collect { |s| freq_count(filter_words(s))  }
+        h1, h2 = [str1, str2].collect { |s| filter_freqs(freq_count(filter_words(s)))  }
         pearson(h1, h2)
       end
       

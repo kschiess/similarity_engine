@@ -43,5 +43,45 @@ module SimilarityEngine
         end
       end
     end
+    
+    # Pearson coefficient for str1 and str2
+    #
+    class Pearson < Computation
+      
+      def filter_words(str)
+        
+        str.gsub(/\W/, ' ').split
+      end
+      
+      def freq_count(arr)
+        arr.inject(Hash.new(0)) { |freqs, word| freqs[word] += 1; freqs }
+      end
+      
+      def pearson(h1, h2)
+        uniq_words = h1.keys & h2.keys # find words that appear in both texts
+        n = Float(uniq_words.size)
+        return 0 if n == 0
+
+        sum1, sum2, sum1_sq, sum2_sq, p_sum = 0,0,0,0,0
+      
+        uniq_words.each do |word|
+          sum1 += h1[word]
+          sum2 += h2[word]
+          sum1_sq += h1[word] ** 2
+          sum2_sq += h2[word] ** 2
+          p_sum += h1[word] * h2[word]
+        end
+        num = p_sum-((sum1 * sum2)/n) 
+        den = Math.sqrt((sum1_sq - (sum1 ** 2)/n) * (sum2_sq - (sum2 ** 2)/n))
+        return 0 if den == 0
+        num / den
+      end
+      
+      def coefficient(str1, str2)
+        h1, h2 = [str1, str2].collect { |s| freq_count(filter_words(s))  }
+        pearson(h1, h2)
+      end
+      
+    end
   end
 end

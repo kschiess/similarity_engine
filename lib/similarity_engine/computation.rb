@@ -78,6 +78,7 @@ module SimilarityEngine
       end
       
       def coefficient(str1, str2)
+        return 0 unless str1 && str2
         h1, h2 = [str1, str2].collect { |s| freq_count(filter_words(s))  }
         pearson(h1, h2)
       end

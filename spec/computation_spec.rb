@@ -57,6 +57,8 @@ describe 'Computations' do
     it "should return 0 for empty strings" do
       coefficient.call('', 'abc').should == 0
       coefficient.call('abc', '').should == 0
+      coefficient.call(nil, 'abc').should == 0
+      coefficient.call('abc', nil).should == 0
     end
     
     it "should ignore non-word characters" do

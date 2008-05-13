@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   end
   
   has_similarity_index :name, 
-    :method => SimilarityEngine::Coefficients::Tanamoto.new, 
+    :method => SimilarityEngine::Coefficients::Tanimoto.new, 
     :extract_field => :letters_in_name
     
   has_similarity_index :bogus, 

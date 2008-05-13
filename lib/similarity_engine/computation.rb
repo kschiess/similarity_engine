@@ -16,20 +16,20 @@ module SimilarityEngine
   end
   
   module Coefficients
-    # Tanamoto coefficient is defined on two sets of objects A and B. 
+    # Tanimoto coefficient is defined on two sets of objects A and B. 
     # Let n be the number of objects in the union of A and B and m be the 
-    # number of objects in the intersection of A and B. Tanamoto defines
+    # number of objects in the intersection of A and B. Tanimoto defines
     # his index as follows: 
     #
-    #   tanamoto(A, B) = 1 - (m / n)
+    #   Tanimoto(A, B) = 1 - (m / n)
     # 
     # We use a modified version that yields 0 on no similarity and 1 on 
     # maximum similarity - a normalized version, so to speak: 
     #
-    #   norm_tanamoto(A, B) = (m / n)
+    #   norm_Tanimoto(A, B) = (m / n)
     #
     require 'set'
-    class Tanamoto < Computation
+    class Tanimoto < Computation
       def coefficient(a, b)
         sa, sb = Set.new(a), Set.new(b)
       

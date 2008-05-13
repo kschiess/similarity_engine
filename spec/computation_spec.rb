@@ -1,10 +1,10 @@
 require File.join(File.dirname(__FILE__), 'spec_helper')
 
 describe 'Computations' do
-  describe SimilarityEngine::Coefficients::Tanamoto do
+  describe SimilarityEngine::Coefficients::Tanimoto do
     attr_reader :coefficient
     before(:each) do
-      @coefficient = SimilarityEngine::Coefficients::Tanamoto.new
+      @coefficient = SimilarityEngine::Coefficients::Tanimoto.new
     end
     it "should derive from Computation" do
       coefficient.should be_kind_of(SimilarityEngine::Computation)

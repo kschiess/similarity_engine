@@ -55,12 +55,9 @@ module SimilarityEngine
       
       def filter_freqs(hash)
         words = {}
-        word_count = 0
+        max = hash.values.max
         hash.each do |word, count|
-          word_count += count
-        end
-        hash.each do |word, count|
-          words[word] = count if count < 0.8 * word_count
+          words[word] = count if (count > 0.1 * max) && (count < 0.5 * max)
         end
         words
       end

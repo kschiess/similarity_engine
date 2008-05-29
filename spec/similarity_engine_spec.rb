@@ -41,6 +41,12 @@ describe 'Similarity Engine' do
         it "should be marcella, matz and barbara" do
           @result.should == [:barbara, :marcella, :matz].map { |s| @users[s] }
         end 
+        it "should have specific return values (calculated by hand)" do
+          barbara, marcella, matz = *@result
+          barbara.summed_scored_coeff.to_f.should be_close(6.8, 0.1)
+          marcella.summed_scored_coeff.to_f.should be_close(5.7, 0.1)
+          matz.summed_scored_coeff.to_f.should be_close(5.5, 0.1)
+        end 
       end
     end
     describe 'bob#find_similar(1)' do

@@ -83,6 +83,22 @@ module SimilarityEngine
         index = Index.new(self, tracker || ProgressTracker.new)
         index.build
       end
+
+      # Recommends +n+ objects based on the preference given. 
+      #
+      # Example: 
+      #
+      # Let toyota, audi and smart be instances of the Car class. 
+      #
+      #   Car.recommend( 10, toyota => 10, audi => -3, smart => 100 )
+      # 
+      # Would return cars that are similar to toyota, smart and dissimilar 
+      # to audi. 
+      #
+      def recommend(n, prefs={})
+        return [] if prefs.empty?
+        Recommend.new(self).recommend(n, prefs)
+      end
     end
   end
 end

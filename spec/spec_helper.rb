@@ -11,7 +11,7 @@ require 'active_support'
 logdir = File.join(File.dirname(__FILE__), '../log')
 FileUtils.mkdir_p(logdir)
 
-ActiveRecord::Base.logger = Logger.new(File.open(File.join(logdir, 'test.log'), 'w+'))
+ActiveRecord::Base.logger = Logger.new(File.join(logdir, 'test.log'))
 ActiveRecord::Base.logger.info "Test run started at #{Time.now.to_s}"
 
 # Set up database connection

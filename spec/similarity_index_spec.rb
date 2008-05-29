@@ -5,7 +5,6 @@ require 'similarity_coefficient'
 include SimilarityEngine
 
 describe Index do
-  
   require 'fixtures/user_scenario_schema'
   require 'fixtures/user_scenario_models'
   

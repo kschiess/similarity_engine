@@ -23,7 +23,26 @@ describe 'Similarity Engine' do
       
       User.build_similarity_index
     end
-    
+
+    describe 'User.recommend' do
+      it "should exist" do
+        User.recommend(10, {})
+      end
+      describe 'test case 1' do
+        before(:each) do
+          @result = User.recommend(10, 
+            @users[:bob] => 10, 
+            @users[:alice] => 1
+          )
+        end
+        it "should have 3 result elements" do
+          @result.should have(3).elements
+        end 
+        it "should be marcella, matz and barbara" do
+          @result.should == [:barbara, :marcella, :matz].map { |s| @users[s] }
+        end 
+      end
+    end
     describe 'bob#find_similar(1)' do
       attr_reader :result
       before(:each) do
@@ -79,5 +98,4 @@ describe 'Similarity Engine' do
       end
     end
   end
-
 end

@@ -7,6 +7,13 @@ $:.unshift File.join(File.dirname(__FILE__), '../lib')
 require 'active_record'
 require 'active_support'
 
+# ActiveRecord Logger - So SQL debugging gets easier
+logdir = File.join(File.dirname(__FILE__), '../log')
+FileUtils.mkdir_p(logdir)
+
+ActiveRecord::Base.logger = Logger.new(File.open(File.join(logdir, 'test.log'), 'w+'))
+ActiveRecord::Base.logger.info "Test run started at #{Time.now.to_s}"
+
 # Set up database connection
 ActiveRecord::Base.establish_connection(
   :database => 'test', 
@@ -36,13 +43,6 @@ ActiveRecord::Migration.verbose = false
 
 # Install table structure needed for Index
 require 'fixtures/similarity_coefficient_schema'
-
-# ActiveRecord Logger - So SQL debugging gets easier
-logdir = File.join(File.dirname(__FILE__), '../log')
-FileUtils.mkdir_p(logdir)
-
-ActiveRecord::Base.logger = Logger.new(File.join(logdir, 'test.log'))
-ActiveRecord::Base.logger.info "Test run started at #{Time.now.to_s}"
 
 # Load the init from the plugin - this will change sometimes and we don't 
 # want a copy here. 
